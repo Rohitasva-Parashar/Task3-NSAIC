@@ -1,28 +1,3 @@
-"""
-WRITE-UP - Task 3: Machine Learning, "The Baseline Beater"
-
-1. Single most impactful change:
-   I replaced the baseline's numeric-only LogisticRegression setup with a
-   feature-engineered HistGradientBoostingClassifier and selected the final
-   probability threshold on a validation split using F1-score.
-
-2. Why this works mathematically/logically:
-   The target is imbalanced: only 334 of 2240 customers, about 14.9%, accepted
-   the campaign. A default 0.50 threshold therefore predicts very few positive
-   cases, which hurts recall and lowers F1, where
-   F1 = 2 * precision * recall / (precision + recall). The upgraded pipeline
-   keeps categorical signal with one-hot encoding, adds behavioral features
-   such as total spend, total purchases, tenure, children, and prior campaign
-   acceptances, and uses gradient-boosted trees to learn nonlinear interactions
-   between those signals. Choosing the threshold on validation F1 moves the
-   decision boundary toward the rare positive class without using the test set.
-
-3. Metric achieved:
-   Re-running the starter baseline in this environment gives F1 = 0.1882.
-   This script reaches F1 = 0.6076 on the same 20% holdout split, a relative
-   improvement of 222.8%, comfortably above the required 20%.
-"""
-
 from __future__ import annotations
 
 import warnings
